@@ -1,21 +1,16 @@
-# Use Node.js LTS as base image
-FROM node:18
+# Use lightweight Node image
+FROM node:18-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm install --omit=dev
 
-# Copy the rest of the application files
 COPY . .
 
-# Expose the port the backend runs on
-EXPOSE 3001
+ENV NODE_ENV=production
 
-# Start the backend server
+EXPOSE 5000
+
 CMD ["node", "src/server.js"]
-

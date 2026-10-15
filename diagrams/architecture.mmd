@@ -1,0 +1,28 @@
+flowchart TB
+    User[Browser / Internet] --> PublicALB
+    subgraph VPC[Custom AWS VPC]
+       PublicALB[Public ALB]
+       subgraph Web[Web tier - across AZs]
+         Web1[Web EC2 / Nginx]
+         Web2[Web EC2 / Nginx]
+       end
+       subgraph Application[Application tier - across AZs]
+         App1[Application EC2 / Node.js]
+         App2[Application EC2 / Node.js]
+       end
+       subgraph Data[Private database tier]
+         DB[(Amazon RDS MySQL - Multi-AZ)]
+       end
+       PublicALB --> Web1
+       PublicALB --> Web2
+       Web1 --> InternalALB[Internal ALB]
+       Web2 --> InternalALB
+       InternalALB --> App1
+       InternalALB --> App2
+       App1 --> DB
+       App2 --> DB
+       WebASG[Web ASG] -. manages .-> Web1
+       WebASG -. manages .-> Web2
+       AppASG[Application ASG] -. manages .-> App1
+       AppASG -. manages .-> App2
+    end

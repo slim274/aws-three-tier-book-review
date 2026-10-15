@@ -7,17 +7,13 @@ const app = express();
 app.use(express.json());
 
 // Read allowed origins from environment variables
-const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : ["http://localhost:3000"];
+const allowedOrigins = [
+  "http://aae055d69ce8f413bb3eba3edb24d8ee-841893890.us-east-1.elb.amazonaws.com"
+];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow requests from valid origins
-    } else {
-      callback(new Error("CORS policy: Not allowed by server"));
-    }
-  },
-  credentials: true,
+  origin: allowedOrigins,
+  credentials: true
 }));
 
 // Debugging: Log incoming requests

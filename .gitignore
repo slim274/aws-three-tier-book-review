@@ -1,0 +1,9 @@
+
+# Dependencies
+node_modules/
+
+# Sensitive files
+.env
+.env.*
+secret.yaml
+*.pem
