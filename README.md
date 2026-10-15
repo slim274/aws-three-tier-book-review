@@ -117,6 +117,6 @@ The report does not establish CI/CD automation, infrastructure-as-code, HTTPS, f
 
 ## Author
 
-**Ibrahim Ahmed Abiodun**  
-GitHub: [@slim274](https://github.com/slim274)  
+**Ibrahim Ahmed Abiodun**
+GitHub: [@slim274](https://github.com/slim274)
 **Training:** DevOps Micro Internship — Cohort 2, Week 6, Assignment 4

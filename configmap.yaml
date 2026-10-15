@@ -6,4 +6,3 @@ metadata:
 data:
   DB_HOST: database-1.cm54o4uoai1w.us-east-1.rds.amazonaws.com
   DB_NAME: bookreview
-
