@@ -1,21 +1,28 @@
-# Use Node.js LTS as base image
-FROM node:18
+# ---------- BUILD STAGE ----------
+FROM node:18-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application files
 COPY . .
 
-# Expose the Next.js port
+# Build Next.js app
+RUN npm run build
+
+# ---------- PRODUCTION STAGE ----------
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy only necessary files from builder
+COPY --from=builder /app ./
+
+ENV NODE_ENV=production
+
+# Expose Next.js port
 EXPOSE 3000
 
-# Start Next.js in development mode
-CMD ["npm", "run", "dev"]
-
+# Start in production mode
+CMD ["npm", "start"]
